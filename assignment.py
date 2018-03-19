@@ -3,6 +3,7 @@ import os
 import csv
 import urllib
 import pandas as pd
+import matplotlib
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
 import numpy as np
@@ -19,6 +20,7 @@ import math
 ##############
 # parameters #
 ##############
+matplotlib.rcParams.update({'font.size': 8})
 data_file = "weather_data.csv"
 baseurl = "https://query.yahooapis.com/v1/public/yql?"
 client = yweather.Client()
@@ -156,7 +158,6 @@ def get_mean_high_temp(df, country):
 def format_dates(df):
     dates = []
     for i in range(forecast_days):
-        print(i)
         s = "-"
         day = df['DATE'][i].split(' ')[0]
         month = month_lookup[df['DATE'][i].split(' ')[1]]
@@ -180,7 +181,7 @@ df = panda_table_formatter(data, formatted_headings, sort_parameter)
 # Print the weather forecast for the next few days in Ireland
 ireland = df[df['COUNTRY'] == 'Ireland']
 ireland = panda_table_formatter(ireland, formatted_headings, 'DATE')
-print(ireland)
+# print(ireland)
 dates = format_dates(ireland)
 plt.bar(dates, ireland['HIGH-TEMP'])
 plt.title("Predicted High Temperatures in Ireland")
@@ -191,16 +192,20 @@ plt.show()
 # TODO Fix bug that occurs when the lowest date is different due to time zones
 # Print the weather forecast for tomorrow for all countries
 tomorrow_weather = df[df['DATE'] == df['DATE'].min()]
-print(tomorrow_weather)
-plt.bar(tomorrow_weather['CITY'], tomorrow_weather['HIGH-TEMP'], width = 0.5)
+# print(tomorrow_weather)
+plt.bar(tomorrow_weather['CITY'], tomorrow_weather['HIGH-TEMP'], width=0.5)
 plt.title("Tomorrows weather in selected cities")
 plt.ylabel("High Temperature")
 plt.xlabel("City")
 plt.show()
 
 
-# print('Max temperature in selected cities today is %2.0f°C' % df['HIGH-TEMP'].max())
-# print('Min temperature in selected cities today is %2.0f°C' % df['LOW-TEMP'].min())
+print('Max temperature across selected cities is %2.0f°C' % df['HIGH-TEMP'].max())
+print('Min temperature across selected cities is %2.0f°C' % df['LOW-TEMP'].min())
+df = (df.loc[df['LOW-TEMP'] == df['LOW-TEMP'].min()])
+# print(df)
+
+
 ### select rows based on value in certain column
 # print(df.loc[df['COUNTRY'] == 'Ireland'])
 ### select rows based on high-temp > 0
