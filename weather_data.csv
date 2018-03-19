@@ -1,0 +1,101 @@
+CITY,COUNTRY,DATE,HIGH-TEMP,LOW-TEMP,LATITUDE,DISTANCE
+Dublin,Ireland,19 Mar 2018,6,1,53.3498,5947.713
+Dublin,Ireland,20 Mar 2018,8,0,53.3498,5947.713
+Dublin,Ireland,21 Mar 2018,7,0,53.3498,5947.713
+Dublin,Ireland,22 Mar 2018,8,4,53.3498,5947.713
+Dublin,Ireland,23 Mar 2018,7,4,53.3498,5947.713
+Dublin,Ireland,24 Mar 2018,8,3,53.3498,5947.713
+Dublin,Ireland,25 Mar 2018,7,2,53.3498,5947.713
+Dublin,Ireland,26 Mar 2018,8,2,53.3498,5947.713
+Dublin,Ireland,27 Mar 2018,9,5,53.3498,5947.713
+Dublin,Ireland,28 Mar 2018,8,4,53.3498,5947.713
+London,United Kingdom,19 Mar 2018,3,0,51.5074,5754.8727
+London,United Kingdom,20 Mar 2018,8,1,51.5074,5754.8727
+London,United Kingdom,21 Mar 2018,8,0,51.5074,5754.8727
+London,United Kingdom,22 Mar 2018,10,4,51.5074,5754.8727
+London,United Kingdom,23 Mar 2018,10,6,51.5074,5754.8727
+London,United Kingdom,24 Mar 2018,10,3,51.5074,5754.8727
+London,United Kingdom,25 Mar 2018,10,2,51.5074,5754.8727
+London,United Kingdom,26 Mar 2018,10,2,51.5074,5754.8727
+London,United Kingdom,27 Mar 2018,10,3,51.5074,5754.8727
+London,United Kingdom,28 Mar 2018,10,6,51.5074,5754.8727
+Paris,France,19 Mar 2018,1,-1,48.8566,5486.4747
+Paris,France,20 Mar 2018,8,-2,48.8566,5486.4747
+Paris,France,21 Mar 2018,7,0,48.8566,5486.4747
+Paris,France,22 Mar 2018,8,1,48.8566,5486.4747
+Paris,France,23 Mar 2018,8,3,48.8566,5486.4747
+Paris,France,24 Mar 2018,10,3,48.8566,5486.4747
+Paris,France,25 Mar 2018,10,3,48.8566,5486.4747
+Paris,France,26 Mar 2018,11,2,48.8566,5486.4747
+Paris,France,27 Mar 2018,10,3,48.8566,5486.4747
+Paris,France,28 Mar 2018,11,7,48.8566,5486.4747
+Berlin,Germany,19 Mar 2018,4,-6,52.52,5772.9657
+Berlin,Germany,20 Mar 2018,3,-4,52.52,5772.9657
+Berlin,Germany,21 Mar 2018,5,-5,52.52,5772.9657
+Berlin,Germany,22 Mar 2018,4,0,52.52,5772.9657
+Berlin,Germany,23 Mar 2018,6,0,52.52,5772.9657
+Berlin,Germany,24 Mar 2018,8,0,52.52,5772.9657
+Berlin,Germany,25 Mar 2018,8,0,52.52,5772.9657
+Berlin,Germany,26 Mar 2018,9,1,52.52,5772.9657
+Berlin,Germany,27 Mar 2018,7,1,52.52,5772.9657
+Berlin,Germany,28 Mar 2018,5,1,52.52,5772.9657
+Stockholm,Sweden,19 Mar 2018,2,-2,59.3293,6609.9168
+Stockholm,Sweden,20 Mar 2018,-1,-7,59.3293,6609.9168
+Stockholm,Sweden,21 Mar 2018,3,-8,59.3293,6609.9168
+Stockholm,Sweden,22 Mar 2018,4,-3,59.3293,6609.9168
+Stockholm,Sweden,23 Mar 2018,2,-5,59.3293,6609.9168
+Stockholm,Sweden,24 Mar 2018,3,-1,59.3293,6609.9168
+Stockholm,Sweden,25 Mar 2018,3,0,59.3293,6609.9168
+Stockholm,Sweden,26 Mar 2018,3,-1,59.3293,6609.9168
+Stockholm,Sweden,27 Mar 2018,2,-2,59.3293,6609.9168
+Stockholm,Sweden,28 Mar 2018,2,-4,59.3293,6609.9168
+Moscow,Russia,20 Mar 2018,2,-7,55.7558,6244.8267000000005
+Moscow,Russia,21 Mar 2018,1,-10,55.7558,6244.8267000000005
+Moscow,Russia,22 Mar 2018,-1,-7,55.7558,6244.8267000000005
+Moscow,Russia,23 Mar 2018,2,-7,55.7558,6244.8267000000005
+Moscow,Russia,24 Mar 2018,0,-5,55.7558,6244.8267000000005
+Moscow,Russia,25 Mar 2018,0,-6,55.7558,6244.8267000000005
+Moscow,Russia,26 Mar 2018,0,-6,55.7558,6244.8267000000005
+Moscow,Russia,27 Mar 2018,0,-5,55.7558,6244.8267000000005
+Moscow,Russia,28 Mar 2018,0,-4,55.7558,6244.8267000000005
+Moscow,Russia,29 Mar 2018,-1,-7,55.7558,6244.8267000000005
+Tokyo,Japan,20 Mar 2018,10,6,35.6895,4012.5612
+Tokyo,Japan,21 Mar 2018,8,4,35.6895,4012.5612
+Tokyo,Japan,22 Mar 2018,16,4,35.6895,4012.5612
+Tokyo,Japan,23 Mar 2018,15,7,35.6895,4012.5612
+Tokyo,Japan,24 Mar 2018,13,5,35.6895,4012.5612
+Tokyo,Japan,25 Mar 2018,16,3,35.6895,4012.5612
+Tokyo,Japan,26 Mar 2018,17,7,35.6895,4012.5612
+Tokyo,Japan,27 Mar 2018,18,8,35.6895,4012.5612
+Tokyo,Japan,28 Mar 2018,19,8,35.6895,4012.5612
+Tokyo,Japan,29 Mar 2018,19,9,35.6895,4012.5612
+Sydney,Australia,20 Mar 2018,27,16,-33.8688,3823.728
+Sydney,Australia,21 Mar 2018,21,18,-33.8688,3823.728
+Sydney,Australia,22 Mar 2018,23,18,-33.8688,3823.728
+Sydney,Australia,23 Mar 2018,22,17,-33.8688,3823.728
+Sydney,Australia,24 Mar 2018,28,15,-33.8688,3823.728
+Sydney,Australia,25 Mar 2018,30,18,-33.8688,3823.728
+Sydney,Australia,26 Mar 2018,25,17,-33.8688,3823.728
+Sydney,Australia,27 Mar 2018,23,11,-33.8688,3823.728
+Sydney,Australia,28 Mar 2018,25,13,-33.8688,3823.728
+Sydney,Australia,29 Mar 2018,25,13,-33.8688,3823.728
+New York,United States,19 Mar 2018,8,0,40.7128,4571.868
+New York,United States,20 Mar 2018,3,-2,40.7128,4571.868
+New York,United States,21 Mar 2018,2,0,40.7128,4571.868
+New York,United States,22 Mar 2018,5,0,40.7128,4571.868
+New York,United States,23 Mar 2018,6,0,40.7128,4571.868
+New York,United States,24 Mar 2018,6,-1,40.7128,4571.868
+New York,United States,25 Mar 2018,5,1,40.7128,4571.868
+New York,United States,26 Mar 2018,5,0,40.7128,4571.868
+New York,United States,27 Mar 2018,7,0,40.7128,4571.868
+New York,United States,28 Mar 2018,9,1,40.7128,4571.868
+Los Angeles,United States,19 Mar 2018,23,10,30.9843,3512.0955
+Los Angeles,United States,20 Mar 2018,20,12,30.9843,3512.0955
+Los Angeles,United States,21 Mar 2018,19,15,30.9843,3512.0955
+Los Angeles,United States,22 Mar 2018,16,15,30.9843,3512.0955
+Los Angeles,United States,23 Mar 2018,18,13,30.9843,3512.0955
+Los Angeles,United States,24 Mar 2018,17,11,30.9843,3512.0955
+Los Angeles,United States,25 Mar 2018,18,8,30.9843,3512.0955
+Los Angeles,United States,26 Mar 2018,21,10,30.9843,3512.0955
+Los Angeles,United States,27 Mar 2018,18,9,30.9843,3512.0955
+Los Angeles,United States,28 Mar 2018,22,11,30.9843,3512.0955

@@ -4,9 +4,11 @@ import csv
 import urllib
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.dates as mdates
 import numpy as np
 import scipy
 import urllib.request
+from datetime import datetime
 import json
 import yweather
 import time
@@ -23,8 +25,10 @@ client = yweather.Client()
 google_maps_api = "AIzaSyADj82WQ-2GlwwyGLO5z5KHoE0OID3HKiQ"
 google_maps_api_url = 'https://maps.googleapis.com/maps/api/geocode/json'
 
-locations = ["Dublin, Ireland", "London, England", "Paris, France", "Berlin, Germany", "Stockholm, Sweden", "Moscow, Russia", "Tokyo, Japan", "Sydney, Australia", "New York City, United States", "Los Angeles, United States"]
+locations = ["Dublin, Ireland", "London, England", "Paris, France", "Berlin, Germany", "Stockholm, Sweden", "Moscow, Russia", "Tokyo, Japan", "Sydney, Australia", "New York City, United States", "LA, United States"]
 weather_headings = ["CITY", "COUNTRY", "DATE", "HIGH-TEMP", "LOW-TEMP", "LATITUDE", "DISTANCE"]
+month_lookup = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07',
+                'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
 
 forecast_days = 10
 DEGREE_IN_KM = 111
@@ -87,10 +91,7 @@ def DMS_to_DD(latitude):
 
 # calculate approximate distance from the equator
 def distance_from_equator(decimal_latitude):
-    rads = math.cos(math.radians(decimal_latitude))
-    print("RADS" + str(rads))
-    distance = rads*DEGREE_IN_KM
-    print("DISTANCE" + str(distance))
+    distance = decimal_latitude*DEGREE_IN_KM
     return distance
 
 
@@ -104,6 +105,9 @@ def get_data(locations):
         yql_url = baseurl + urllib.parse.urlencode({'q': yql_query}) + "&format=json"
         result = urllib.request.urlopen(yql_url).read()
         parsed_data = json.loads(result)
+
+        latitude = get_latitude(locations[i])
+        distance = distance_from_equator(DMS_to_DD(get_latitude(locations[i])))
         for x in range(forecast_days):
             data = []
             data.append(str(parsed_data['query']['results']['channel'][x]['location']['city']))
@@ -111,8 +115,8 @@ def get_data(locations):
             data.append(str(parsed_data['query']['results']['channel'][x]['item']['forecast']['date']))
             data.append(str(parsed_data['query']['results']['channel'][x]['item']['forecast']['high']))
             data.append(str(parsed_data['query']['results']['channel'][x]['item']['forecast']['low']))
-            data.append(get_latitude(locations[i]))
-            data.append(distance_from_equator(DMS_to_DD(get_latitude(locations[i]))))
+            data.append(latitude)
+            data.append(distance)
             write_to_file(data_file, data)
 
 
@@ -149,35 +153,62 @@ def get_mean_high_temp(df, country):
     return mean
 
 
+def format_dates(df):
+    dates = []
+    for i in range(forecast_days):
+        print(i)
+        s = "-"
+        day = df['DATE'][i].split(' ')[0]
+        month = month_lookup[df['DATE'][i].split(' ')[1]]
+        seq = (day, month)
+        date = s.join(seq)
+        dates.append(date)
+    return dates
 
-get_data(locations)
+
+
+# get_data(locations)
 data = read_from_csv(data_file)
+# print(data)
 formatted_headings = weather_headings
 sort_parameter = 'HIGH-TEMP'
 
 # format and print table
 df = panda_table_formatter(data, formatted_headings, sort_parameter)
-print(df[0:len(df)])
-
-countries = df
-
-print('Max temperature in selected cities today is %2.0f°C' % df['HIGH-TEMP'].max())
-print('Min temperature in selected cities today is %2.0f°C' % df['LOW-TEMP'].min())
-
-# select rows based on value in certain column
-print(df.loc[df['COUNTRY'] == 'Ireland'])
-
-# select rows based on high-temp > 0
-print(df.loc[df['HIGH-TEMP'] > 0])
-
-# isolate Ireland's data
-newdf = df[df['COUNTRY'] == 'Ireland']
-newdf = panda_table_formatter(newdf, formatted_headings, 'DATE')
-print(newdf)
-print(newdf['HIGH-TEMP'].mean())
 
 
-newdf = get_day_max_temp(newdf, 'Ireland')
-print(newdf)
+# Print the weather forecast for the next few days in Ireland
+ireland = df[df['COUNTRY'] == 'Ireland']
+ireland = panda_table_formatter(ireland, formatted_headings, 'DATE')
+print(ireland)
+dates = format_dates(ireland)
+plt.bar(dates, ireland['HIGH-TEMP'])
+plt.title("Predicted High Temperatures in Ireland")
+plt.ylabel("High Temperature")
+plt.xlabel("Date")
+plt.show()
+
+# TODO Fix bug that occurs when the lowest date is different due to time zones
+# Print the weather forecast for tomorrow for all countries
+tomorrow_weather = df[df['DATE'] == df['DATE'].min()]
+print(tomorrow_weather)
+plt.bar(tomorrow_weather['CITY'], tomorrow_weather['HIGH-TEMP'], width = 0.5)
+plt.title("Tomorrows weather in selected cities")
+plt.ylabel("High Temperature")
+plt.xlabel("City")
+plt.show()
+
+
+# print('Max temperature in selected cities today is %2.0f°C' % df['HIGH-TEMP'].max())
+# print('Min temperature in selected cities today is %2.0f°C' % df['LOW-TEMP'].min())
+### select rows based on value in certain column
+# print(df.loc[df['COUNTRY'] == 'Ireland'])
+### select rows based on high-temp > 0
+# print(df.loc[df['HIGH-TEMP'] > 0])
+### isolate Ireland's data
+# newdf = df[df['COUNTRY'] == 'Ireland']
+# newdf = panda_table_formatter(newdf, formatted_headings, 'DATE')
+# print(newdf)
+# print(newdf['HIGH-TEMP'].mean())
 
 #delete_file(data_file)
