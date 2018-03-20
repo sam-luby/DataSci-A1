@@ -206,6 +206,18 @@ df = (df.loc[df['LOW-TEMP'] == df['LOW-TEMP'].min()])
 # print(df)
 
 
+# TODO Temperature Range per country
+
+
+
+# TODO Hottest day on avg for all countries -> loop to go through each country and then in each country get highest temp
+
+
+
+# TODO Correlation of distance from equator vs avg temp per country
+
+
+
 ### select rows based on value in certain column
 # print(df.loc[df['COUNTRY'] == 'Ireland'])
 ### select rows based on high-temp > 0
