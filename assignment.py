@@ -27,13 +27,13 @@ client = yweather.Client()
 google_maps_api = "AIzaSyADj82WQ-2GlwwyGLO5z5KHoE0OID3HKiQ"
 google_maps_api_url = 'https://maps.googleapis.com/maps/api/geocode/json'
 
-locations = ["Dublin, Ireland", "London, England", "Paris, France", "Berlin, Germany", "Stockholm, Sweden", "Moscow, Russia", "Tokyo, Japan", "Sydney, Australia", "New York City, United States", "LA, United States"]
+locations = ["Dublin, Ireland", "London, England", "Paris, France", "Berlin, Germany", "Stockholm, Sweden", "Moscow, Russia", "Tokyo, Japan", "Sydney, Australia", "New York, United States", "Los Angeles, United States"]
 weather_headings = ["CITY", "COUNTRY", "DATE", "HIGH-TEMP", "LOW-TEMP", "LATITUDE", "DISTANCE"]
 month_lookup = {'Jan': '01', 'Feb': '02', 'Mar': '03', 'Apr': '04', 'May': '05', 'Jun': '06', 'Jul': '07',
                 'Aug': '08', 'Sep': '09', 'Oct': '10', 'Nov': '11', 'Dec': '12'}
-
 forecast_days = 10
-DEGREE_IN_KM = 111
+DEGREE_IN_KM = 111.11
+
 
 # create csv file to write data to
 def create_file(file_location, date_headings):
@@ -135,15 +135,15 @@ def panda_table_formatter(data, data_headings, param):
 
 
 # returns the day(s) when the temperature in highest for a given country
-def get_day_max_temp(df, country):
-    df = df[df['COUNTRY'] == country]
+def get_days_max_temp(df, city):
+    df = df[df['CITY'] == city]
     df = (df.loc[df['HIGH-TEMP'] == df['HIGH-TEMP'].max()])
     return df
 
 
 # returns the day(s) when the temperature in lowest for a given country
-def get_day_min_temp(df, country):
-    df = df[df['COUNTRY'] == country]
+def get_days_min_temp(df, city):
+    df = df[df['CITY'] == city]
     df = (df.loc[df['LOW-TEMP'] == df['LOW-TEMP'].min()])
     return df
 
@@ -155,9 +155,9 @@ def get_mean_high_temp(df, country):
     return mean
 
 
-def format_dates(df):
+def format_dates(df, it=forecast_days):
     dates = []
-    for i in range(forecast_days):
+    for i in range(it):
         s = "-"
         day = df['DATE'][i].split(' ')[0]
         month = month_lookup[df['DATE'][i].split(' ')[1]]
@@ -183,11 +183,12 @@ ireland = df[df['COUNTRY'] == 'Ireland']
 ireland = panda_table_formatter(ireland, formatted_headings, 'DATE')
 # print(ireland)
 dates = format_dates(ireland)
-plt.bar(dates, ireland['HIGH-TEMP'])
+plt.bar(dates, ireland['HIGH-TEMP'], color='g')
 plt.title("Predicted High Temperatures in Ireland")
 plt.ylabel("High Temperature")
 plt.xlabel("Date")
 plt.show()
+
 
 # TODO Fix bug that occurs when the lowest date is different due to time zones
 # Print the weather forecast for tomorrow for all countries
@@ -200,21 +201,62 @@ plt.xlabel("City")
 plt.show()
 
 
-print('Max temperature across selected cities is %2.0f°C' % df['HIGH-TEMP'].max())
-print('Min temperature across selected cities is %2.0f°C' % df['LOW-TEMP'].min())
-df = (df.loc[df['LOW-TEMP'] == df['LOW-TEMP'].min()])
-# print(df)
+
+# print('Max temperature across selected cities is %2.0f°C' % df['HIGH-TEMP'].max())
+# print('Min temperature across selected cities is %2.0f°C' % df['LOW-TEMP'].min())
 
 
-# TODO Temperature Range per country
+# Temperature Range per city
+temperature_ranges = []
+cities = []
+for i in range(len(locations)):
+    cities.append(locations[i].split(',')[0])
+    df_city = df[df['CITY'] == cities[i]]
+    max_temp = df_city['HIGH-TEMP'].max()
+    min_temp = df_city['LOW-TEMP'].min()
+    temperature_ranges.append(max_temp-min_temp)
+
+plt.bar(cities, temperature_ranges, width = 0.5)
+plt.title("Temperature Ranges for selected cities")
+plt.ylabel("Temperature Range")
+plt.xlabel("City")
+plt.show()
 
 
+# TODO Hottest DAY on avg for all countries -> go through all dates, find occurrences of each in hottest_days df
+hottest_days = []
+for i in range(len(locations)):
+    # df_city = df[df['CITY'] == cities[i]]
+    max_temp_days = get_days_max_temp(df, cities[i])
 
-# TODO Hottest day on avg for all countries -> loop to go through each country and then in each country get highest temp
+    # select the earliest date that the high temperatures occur, since we can assume predictions are more accurate
+        # the closer to the date
+    hottest_days.append(max_temp_days.iloc[0])
+hottest_days = pd.DataFrame(hottest_days)
 
+# Add an occurrences column to the dataframe to count which days are hottest on average in all countries
+hottest_days = (pd.DataFrame(hottest_days['DATE'])).reset_index(drop=True)
+hottest_days['OCCURRENCES'] = hottest_days.groupby('DATE')['DATE'].transform('count')
+hottest_days.drop_duplicates(inplace=True)
+
+# sort dates properly
+hottest_days.sort_values(by='DATE', inplace=True, ascending=True)
+hottest_days.reset_index(drop=True, inplace=True)
+
+# format dates in dataframe
+dates = hottest_days[['DATE']]
+dates_fmt = format_dates(dates, len(dates))
+hottest_days[['DATE']] = dates_fmt
+
+plt.bar(hottest_days['DATE'], hottest_days['OCCURRENCES'], width=0.5)
+plt.title("Hottest Days on Average")
+plt.ylabel("Date")
+plt.xlabel("Occurrences")
+plt.show()
 
 
 # TODO Correlation of distance from equator vs avg temp per country
+
 
 
 
