@@ -15,8 +15,8 @@ import numpy as np
 ##############
 # parameters #
 ##############
-matplotlib.rcParams.update({'font.size': 6})
-data_file = "weather_data.csv"
+matplotlib.rcParams.update({'font.size': 6})  #Sets plot font size to small to accomodate a large amount of data
+data_file = "weather_data.csv"                #File to write csv values to
 baseurl = "https://query.yahooapis.com/v1/public/yql?"
 client = yweather.Client()
 google_maps_api = "AIzaSyADj82WQ-2GlwwyGLO5z5KHoE0OID3HKiQ"
@@ -121,15 +121,10 @@ def get_data(locations):
             write_to_file(data_file, data)
 
 
-def read_from_csv(file_location):
-    data = pd.read_csv(file_location)
-    return data
-
-
 # format the csv data into a sorted panda table with headings
-def panda_table_formatter(data, data_headings, param):
+def panda_table_formatter(data, data_headings, param, asc=True):
     formatted_data = data[data_headings]
-    formatted_data = formatted_data.sort_values(by=[param])
+    formatted_data = formatted_data.sort_values(by=[param], ascending=asc)
     return formatted_data
 
 
@@ -153,7 +148,7 @@ def get_mean_high_temp(df, city):
     mean = df['HIGH-TEMP'].mean()
     return mean
 
-
+# function to format dates [01-Mar-18 to 01-03]
 def format_dates(df, it=forecast_days):
     dates = []
     for i in range(it):
@@ -166,27 +161,35 @@ def format_dates(df, it=forecast_days):
     return dates
 
 
+# truncate the city names so the barchart isnt cluttered
+def truncate_names(df):
+    city_names = df['CITY'].tolist()
+    print(city_names)
+    for i, city in enumerate(city_names):
+        city = city[0:3]
+        city_names[i] = city
+    return city_names
+
 
 ##################
 #     Main       #
 ##################
 
 # get_data(locations)
-data = read_from_csv(data_file)
-print(data)
-formatted_headings = weather_headings
-sort_parameter = 'HIGH-TEMP'
+data = pd.read_csv(data_file)
+# print(data)
+
 
 # format and print table
-df = panda_table_formatter(data, formatted_headings, sort_parameter)
-# print(df)
+df = panda_table_formatter(data, weather_headings, 'HIGH-TEMP', False)
+print(df)
 
 print('Max temperature across selected cities is %2.0f°C' % df['HIGH-TEMP'].max())
 print('Min temperature across selected cities is %2.0f°C' % df['LOW-TEMP'].min())
 
 # Print the weather forecast for the next few days in Ireland
 ireland = df[df['COUNTRY'] == 'Ireland']
-ireland = panda_table_formatter(ireland, formatted_headings, 'DATE')
+ireland = panda_table_formatter(ireland, weather_headings, 'DATE')
 # print(ireland)
 dates = format_dates(ireland)
 plt.bar(dates, ireland['HIGH-TEMP'], color='g')
@@ -214,53 +217,6 @@ plt.show()
 #################################
 temperature_ranges = []
 cities = []
-for i in range(len(locations)):
-    cities.append(locations[i].split(',')[0])
-    df_city = df[df['CITY'] == cities[i]]
-    max_temp = df_city['HIGH-TEMP'].max()
-    min_temp = df_city['LOW-TEMP'].min()
-    temperature_ranges.append(max_temp-min_temp)
-
-plt.bar(cities, temperature_ranges, width = 0.5)
-plt.title("Temperature Ranges for selected cities")
-plt.ylabel("Temperature Range")
-plt.xlabel("City")
-plt.show()
-
-
-#######################################################
-# Which days are hottest on average for all countries #
-#######################################################
-hottest_days = []
-for i in range(len(locations)):
-    # df_city = df[df['CITY'] == cities[i]]
-    max_temp_days = get_days_max_temp(df, cities[i])
-
-    # select the earliest date that the high temperatures occur, since we can assume predictions are more accurate
-        # the closer to the date
-    hottest_days.append(max_temp_days.iloc[0])
-hottest_days = pd.DataFrame(hottest_days)
-
-# Add an occurrences column to the dataframe to count which days are hottest on average in all countries
-hottest_days = (pd.DataFrame(hottest_days['DATE'])).reset_index(drop=True)
-hottest_days['OCCURRENCES'] = hottest_days.groupby('DATE')['DATE'].transform('count')
-hottest_days.drop_duplicates(inplace=True)
-
-# sort dates properly
-hottest_days.sort_values(by='DATE', inplace=True, ascending=True)
-hottest_days.reset_index(drop=True, inplace=True)
-
-# format dates in dataframe
-dates = hottest_days[['DATE']]
-dates_fmt = format_dates(dates, len(dates))
-hottest_days[['DATE']] = dates_fmt
-
-matplotlib.rcParams.update({'font.size': 10})
-plt.bar(hottest_days['DATE'], hottest_days['OCCURRENCES'], width=0.5)
-plt.title("Hottest Days on Average")
-plt.ylabel("Date")
-plt.xlabel("Occurrences")
-plt.show()
 
 
 ######################################################
@@ -272,18 +228,15 @@ for i in range(len(locations)):
     distances = data[['DISTANCE']]
     distances = distances.drop_duplicates()
     distances = distances['DISTANCE'].tolist()
+df_dist = pd.DataFrame({'DIST': distances, 'TEMP': mean_high_temps})
 
-# distances = [ '%.2f' % x for x in distances]
-print(mean_high_temps)
-print(distances)
-
-# plt.plot(distances)
-# plt.plot(mean_high_temps)
-plt.scatter(distances, mean_high_temps)
+plt.scatter(df_dist['DIST'], df_dist['TEMP'])
 plt.plot(np.unique(distances), np.poly1d(np.polyfit(distances, mean_high_temps, 1))(np.unique(distances)), color='r')
 plt.title("Mean High Temperature vs Distance from Equator")
 plt.ylabel("Mean High Temperature for the forecasted days (°C)")
 plt.xlabel("Distance from equator (km)")
 plt.show()
+
+print(len(locations))
 
 #delete_file(data_file)
