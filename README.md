@@ -40,8 +40,9 @@ Pandas is a python library which provides tools for making data structures and t
 * I use pandas built in functions throughout to sort and gather information as needed from the table (e.g. find the    forecasted weather in each city for a particular date, find the location/date which has the highest temperature for the forecasted days) etc.
 
 Below is an example of the pandas table, filtering by only looking at data related to Dublin.
-
+<p align="center">
 ![Alt text](images/dublin.png)
+ </p>
 
   
   
