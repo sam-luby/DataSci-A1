@@ -40,6 +40,7 @@ Pandas is a python library which provides tools for making data structures and t
 * I use pandas built in functions throughout to sort and gather information as needed from the table (e.g. find the    forecasted weather in each city for a particular date, find the location/date which has the highest temperature for the forecasted days) etc.
 
 Below is an example of the pandas table, filtering by only looking at data related to Dublin.
+
 ![Alt text](images/dublin.png)
 
   
@@ -54,19 +55,21 @@ I use the _panda_table_formatter_ method I created to sort the pandas dataframe.
 The hottest and coldest temperature can be found using the pandas _.max()_ and _.min()_ methods respectively. 
 
 Below are the outputs when examining the 5 hottest and 5 coldest temperatures for the forecasted days.
-<image>
-<image>
+
+![Alt text](images/hottest.png)
+![Alt text](images/coldest.png)
 
 
 I also examine the weather for a particular location by just creating a new pandas dataframe by filtering an existing one based on location. Using the same data as in the table above for Dublin, I can create a matplotlib histogram to show the temperatures for the forecasted days. I had to create a new method _format_dates_ to change date format from 'dd-mmm-yy' to 'dd-mm' to fit on the plot.
-<image of histogram>
+
+![Alt text](images/hist.png)
   
   
 
 Additionally, I examine tomorrow's weather for all locations. This simply involved creating a new dataframe, using the pandas _.min()_ method to find the "lowest" date (i.e. earliest recorded date). I also needed to shorten the city names to allow them to all fit on the graph neatly, so I made a _truncate_names_ method.
-<image of tomorrow's weather table>
-<image of tomorrow's weather graph>
 
+![Alt text](images/tomorrow_table.png)
+![Alt text](images/tomorrow_graph.png)
 
 
 Analysis continues on in a similar fashion, where I analysed the following stats:
@@ -76,7 +79,8 @@ Analysis continues on in a similar fashion, where I analysed the following stats
 
 
 Finally, I wanted to measure if there was a correlation between the mean high temperature and the distance from the equator for each city. Pandas _.mean()_ method comes in handy here, and a new dataframe is created, consisting of each city along with its mean high temperature over the forecasted days. Initially I used the 10 original locations, but I changed this to 40 locations to get a more accurate line of best fit to examine the correlation. The graph to represent this information is shown below, with a line of best fit:
-<image>
+
+![Alt text](images/corr.png)
  
 The graph shows the data points are closely clustered around the line of best fit, showing a strong correlation. Using the _.corr()_ function to calculate the correlation, I found there was a correlation coeffeicient of approximately -0.91 (i.e. the mean high temperatures decrease as you get farther from the equator).
 
