@@ -74,10 +74,12 @@ Analysis continues on in a similar fashion, where I analysed the following stats
 
 
 
-Finally, I wanted to measure if there was a correlation between the mean high temperature and the distance from the equator for each city.
+Finally, I wanted to measure if there was a correlation between the mean high temperature and the distance from the equator for each city. Pandas _.mean()_ method comes in handy here, and a new dataframe is created, consisting of each city along with its mean high temperature over the forecasted days. Initially I used the 10 original locations, but I changed this to 40 locations to get a more accurate line of best fit to examine the correlation. The graph to represent this information is shown below, with a line of best fit:
+<image>
+ 
+The graph shows the data points are closely clustered around the line of best fit, showing a strong correlation. Using the _.corr()_ function to calculate the correlation, I found there was a correlation coeffeicient of approximately -0.91 (i.e. the mean high temperatures decrease as you get farther from the equator).
 
 
-I added 40 cities before graphing the mean high temperature per city vs the distance from the Earth's equator. This was to find out if there 
-was a clear correlation between the two. 
+## Notes
 
-Look at the python jupyter notebook (.ipynb to get the step-by-step process)
+The python Jupyter notebook (.ipynb file) shows the step-by-step process of the project, the code used, as well as a full discussion of results.
