@@ -41,7 +41,7 @@ Pandas is a python library which provides tools for making data structures and t
 
 Below is an example of the pandas table, filtering by only looking at data related to Dublin.
 <p align="center">
-![Alt text](images/dublin.png)
+<img ![Alt text](images/dublin.png)/>
  </p>
 
   
