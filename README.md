@@ -41,9 +41,11 @@ Pandas is a python library which provides tools for making data structures and t
 
 Below is an example of the pandas table, filtering by only looking at data related to Dublin.
 
-![Alt text](images/dublin.png){: .center-image}
+![Alt text](images/dublin.png)
 
 
+  
+  
   
   
  ### Matplotlib
@@ -61,16 +63,22 @@ Below are the outputs when examining the 5 hottest and 5 coldest temperatures fo
 ![Alt text](images/coldest.png)
 
 
+
+
 I also examine the weather for a particular location by just creating a new pandas dataframe by filtering an existing one based on location. Using the same data as in the table above for Dublin, I can create a matplotlib histogram to show the temperatures for the forecasted days. I had to create a new method _format_dates_ to change date format from 'dd-mmm-yy' to 'dd-mm' to fit on the plot.
 
 ![Alt text](images/hist.png)
   
   
 
+
+
 Additionally, I examine tomorrow's weather for all locations. This simply involved creating a new dataframe, using the pandas _.min()_ method to find the "lowest" date (i.e. earliest recorded date). I also needed to shorten the city names to allow them to all fit on the graph neatly, so I made a _truncate_names_ method.
 
 ![Alt text](images/tomorrow_table.png)
 ![Alt text](images/tomorrow_graph.png)
+
+
 
 
 Analysis continues on in a similar fashion, where I analysed the following stats:
@@ -83,6 +91,8 @@ Finally, I wanted to measure if there was a correlation between the mean high te
 
 ![Alt text](images/corr.png)
  
+ 
+
 The graph shows the data points are closely clustered around the line of best fit, showing a strong correlation. Using the _.corr()_ function to calculate the correlation, I found there was a correlation coeffeicient of approximately -0.91 (i.e. the mean high temperatures decrease as you get farther from the equator).
 
 
