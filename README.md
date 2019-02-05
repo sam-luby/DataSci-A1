@@ -2,9 +2,9 @@
 Data Science in Python - Assignment 1 (A+ grade achieved)
 
 project structure:
-i) assignment1.ipynb - The Jupyter notebook for nice step-by-step procedure including graphs and discussion of results.
-ii) assignment1.py - The source code used to create the notebook.
-iii) some sample outputs (csv files)
+1. assignment1.ipynb - The Jupyter notebook for nice step-by-step procedure including graphs and discussion of results.
+2. assignment1.py - The source code used to create the notebook.
+3. some sample outputs (csv files)
 
 
 This assignment served as both an introduction to data science as well as to Python.
