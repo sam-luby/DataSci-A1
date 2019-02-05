@@ -4,6 +4,7 @@ Data Science in Python - Assignment 1 (A+ grade achieved)
 project structure:
 i) assignment1.ipynb - The Jupyter notebook for nice step-by-step procedure including graphs and discussion of results.
 ii) assignment1.py - The source code used to create the notebook.
+iii) some sample outputs (csv files)
 
 
 This assignment served as both an introduction to data science as well as to Python.
@@ -39,7 +40,7 @@ Pandas is a python library which provides tools for making data structures and t
 * I use pandas built in functions throughout to sort and gather information as needed from the table (e.g. find the    forecasted weather in each city for a particular date, find the location/date which has the highest temperature for the forecasted days) etc.
 
 Below is an example of the pandas table, filtering by only looking at data related to Dublin.
-<image>
+![Alt text](images/dublin.png)
 
   
   
